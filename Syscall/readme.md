@@ -97,3 +97,98 @@ Tài liệu này cung cấp danh sách các lệnh Assembly phổ biến trong k
 
 ## B. CÁC SYSCALL CHÍNH TRONG ASM ( KHÔNG BAO GỒM CALL libc )
 
+### Tổng Quan
+Hệ điều hành Linux cung cấp các **syscall (system calls)** để chương trình có thể giao tiếp với kernel. Syscall giúp thực hiện các tác vụ như đọc/ghi file, quản lý bộ nhớ, tạo tiến trình, v.v.
+
+### B1. Cách Truyền Tham Số Khi Gọi Syscall
+
+#### **1. Trên x86_64 (64-bit)**
+| Thanh ghi | Chức năng |
+|-----------|----------|
+| `rax`     | Số syscall |
+| `rdi`     | Tham số thứ 1 |
+| `rsi`     | Tham số thứ 2 |
+| `rdx`     | Tham số thứ 3 |
+| `r10`     | Tham số thứ 4 |
+| `r8`      | Tham số thứ 5 |
+| `r9`      | Tham số thứ 6 |
+
+**Ví dụ: Gọi `write()` trong Assembly (x86_64)**
+```assembly
+mov rax, 1      ; Syscall number của write (1)
+mov rdi, 1      ; File descriptor 1 (stdout)
+mov rsi, msg    ; Địa chỉ buffer chứa dữ liệu
+mov rdx, len    ; Độ dài dữ liệu cần ghi
+syscall
+```
+**Call write libc (syscall write() trong C)**
+```C
+#include <unistd>
+int main() {
+    write(1, "Hello, ditme!\n", 14);
+    return 0;
+}
+```
+#### **2. Trên x86_32 (32-bit)**
+
+| Thanh ghi | Chức năng |
+|-----------|-----------|
+| `eax`     | Số syscall |
+| `ebx`     | Tham số 1 |
+| `ecx`     | Tham số 2 |
+| `edx`     | Tham số 3 |
+| `esi`     | Tham số 4 |
+| `edi`     | Tham số 5 |
+
+**Call write libc (syscall write() trong C)**
+```C
+#include <unistd.h>
+
+int main() {
+    syscall(4, 1, "Hello, ditme!\n", 14);
+    return 0;
+}
+```
+- Phần sau tự tìm hiểu, lười ghi quá 😥
+
+---
+
+### B2. DANH SÁCH CÁC SYSCALL QUAN TRỌNG :
+
+#### ⚠️ :
+1. Syscall trên x86_64 sử dụng **syscall** thay vì **int x80** như trên x86 32-bit.
+
+2. Các tham số truyền vào thanh ghi theo quy tắc của từng kiến trúc. 
+
+#### 1. Syscall Trên x86_64 (64-bit)
+| Syscall      | Số syscall | Chức năng               | Tham số |
+|-------------|------------|-------------------------|--------------------------------------------|
+| `sys_write` | `1`        | Ghi dữ liệu ra file     | `rdi` = fd, `rsi` = buffer, `rdx` = length |
+| `sys_exit`  | `60`       | Thoát chương trình      | `rdi` = exit code |
+| `sys_read`  | `0`        | Đọc dữ liệu từ file     | `rdi` = fd, `rsi` = buffer, `rdx` = length |
+| `sys_open`  | `2`        | Mở file                 | `rdi` = filename, `rsi` = flags, `rdx` = mode |
+| `sys_close` | `3`        | Đóng file               | `rdi` = fd |
+| `sys_fork`  | `57`       | Tạo tiến trình mới      | Không có |
+| `sys_execve`| `59`       | Chạy chương trình mới   | `rdi` = path, `rsi` = argv, `rdx` = envp |
+| `sys_brk`   | `12`       | Cấp phát bộ nhớ         | `rdi` = địa chỉ mới |
+| `sys_mmap`  | `9`        | Map vùng nhớ            | `rdi` = addr, `rsi` = length, `rdx` = prot, `r10` = flags, `r8` = fd, `r9` = offset |
+
+---
+
+## 📌 2. Syscall Trên x86 (32-bit)
+| Syscall      | Số syscall | Chức năng               | Tham số |
+|-------------|------------|-------------------------|--------------------------------------------|
+| `sys_write` | `4`        | Ghi dữ liệu ra file     | `ebx` = fd, `ecx` = buffer, `edx` = length |
+| `sys_exit`  | `1`        | Thoát chương trình      | `ebx` = exit code |
+| `sys_read`  | `3`        | Đọc dữ liệu từ file     | `ebx` = fd, `ecx` = buffer, `edx` = length |
+| `sys_open`  | `5`        | Mở file                 | `ebx` = filename, `ecx` = flags, `edx` = mode |
+| `sys_close` | `6`        | Đóng file               | `ebx` = fd |
+| `sys_fork`  | `2`        | Tạo tiến trình mới      | Không có |
+| `sys_execve`| `11`       | Chạy chương trình mới   | `ebx` = path, `ecx` = argv, `edx` = envp |
+| `sys_brk`   | `45`       | Cấp phát bộ nhớ         | `ebx` = địa chỉ mới |
+| `sys_mmap2` | `192`      | Map vùng nhớ            | `ebx` = addr, `ecx` = length, `edx` = prot, `esi` = flags, `edi` = fd, `ebp` = offset |
+
+---
+  
+Còn tiếp...
+
