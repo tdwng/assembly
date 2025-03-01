@@ -1,4 +1,4 @@
-# SYSCALL TRONG ASSEMBLY ( CHỈ ĐỐI VỚI x86_64 và 32-bits )
+# SYSCALL TRONG ASSEMBLY ( CHỈ ĐỐI VỚI x86_64 và x86 32-bit )
 
 ## Tổng Quan
 Tài liệu này cung cấp danh sách các lệnh Assembly phổ biến trong kiến trúc `x86-64` trên Linux, cùng với mục đích, cách dùng và ví dụ thực tế.
