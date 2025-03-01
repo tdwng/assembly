@@ -175,7 +175,7 @@ int main() {
 
 ---
 
-## 📌 2. Syscall Trên x86 (32-bit)
+### 2. Syscall Trên x86 (32-bit)
 | Syscall      | Số syscall | Chức năng               | Tham số |
 |-------------|------------|-------------------------|--------------------------------------------|
 | `sys_write` | `4`        | Ghi dữ liệu ra file     | `ebx` = fd, `ecx` = buffer, `edx` = length |
