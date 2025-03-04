@@ -1,6 +1,6 @@
 # ABOUT ASM'S CONDITIONAL
 
-	Phần này sẽ nói về conditional và `call`, `ret` trong ASM. Thông số và ví dụ có thể sẽ lấy từ cả x86 lẫn x86-64. 
+Phần này sẽ nói về conditional và `call`, `ret` trong ASM. Thông số và ví dụ có thể sẽ lấy từ cả x86 lẫn x86-64. 
 
 ---
 
