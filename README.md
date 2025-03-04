@@ -10,6 +10,8 @@
 
 [3. Syscall](./Syscall)
 
-[4. Tính toán toán học với asm](./ASM-ALGORITHM)
+[4. Conditional](./Conditional)
+
+[5. Tính toán toán học với asm](./ASM-ALGORITHM)
 
 ---
