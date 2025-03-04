@@ -1,4 +1,4 @@
-# Thanh ghi trong ASM (Register)
+\# Thanh ghi trong ASM (Register)
 
 ## A. Các loại thanh ghi chính bao gồm :
 
