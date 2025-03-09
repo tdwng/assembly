@@ -189,6 +189,17 @@ int main() {
 | `sys_mmap2` | `192`      | Map vùng nhớ            | `ebx` = addr, `ecx` = length, `edx` = prot, `esi` = flags, `edi` = fd, `ebp` = offset |
 
 ---
-  
+
+#### 3. File descriptor (fd)
+
+- Gồm 3 file descripttor mặc định :
+|File descriptor|Tên  |Mô tả|
+|---------------|-----|-----|
+|0              |`stdin`|Input chuẩn (bàn phím)|
+|1              |`stdout`|Output chuẩn (bàn phím)|
+|2              |`stderr`|Lỗi chuẩn (màn hình)|
+
+---
+
 Còn tiếp...
 
