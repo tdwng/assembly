@@ -193,6 +193,7 @@ int main() {
 #### 3. File descriptor (fd)
 
 - Gồm 3 file descripttor mặc định :
+
 |File descriptor|Tên  |Mô tả|
 |---------------|-----|-----|
 |0              |`stdin`|Input chuẩn (bàn phím)|
